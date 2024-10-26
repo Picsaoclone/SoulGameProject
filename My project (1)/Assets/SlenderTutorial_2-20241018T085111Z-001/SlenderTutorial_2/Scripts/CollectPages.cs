@@ -12,6 +12,7 @@ public class CollectPages : MonoBehaviour
 
     private bool inReach;
 
+    private GameObject gameLogic;
 
 
     void Start()
@@ -19,6 +20,8 @@ public class CollectPages : MonoBehaviour
         collectText.SetActive(false);
 
         inReach = false;
+
+        gameLogic = GameObject.FindWithTag("GameLogic");
 
         page = this.gameObject;
         
@@ -46,6 +49,7 @@ public class CollectPages : MonoBehaviour
     {
         if(inReach && Input.GetButtonDown("pickup"))
         {
+            gameLogic.GetComponent<GameLogic>().pageCount += 1;
             collectSound.Play();
             collectText.SetActive(false);
             page.SetActive(false);
