@@ -299,7 +299,7 @@ MonoBehaviour:
   playerCam: {fileID: 1882699744}
   walkSpeed: 3
   runSpeed: 5
-  jumpPower: 0
+  jumpPower: 3
   gravity: 10
   lookSpeed: 2
   lookXLimit: 75
@@ -1751,15 +1751,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee35ad28e06332a44b6708c499276464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 128439426}
   teleportDistance: 15
   teleportCooldown: 2
-  returnCooldown: 15
-  chaseProbability: 0.74
+  returnCooldown: 3
+  chaseProbability: 1
   rotationSpeed: 5
   teleportSound: {fileID: 8300000, guid: 75b6793d4022ca74a94c8c9b16b7010d, type: 3}
   staticObject: {fileID: 1817576788}
-  staticActivationRange: 5
+  staticActivationRange: 10
 --- !u!4 &616234306
 Transform:
   m_ObjectHideFlags: 0
@@ -4327,7 +4327,7 @@ Transform:
   m_GameObject: {fileID: 1435013333}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.26, y: 3.29, z: 3.5099998}
+  m_LocalPosition: {x: 40.7, y: 6.74, z: 76.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5686,13 +5686,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817576788}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5421386, y: 0.54366815, z: 0.45509517, w: 0.45099798}
-  m_LocalPosition: {x: 0.15000018, y: 0, z: 0.56000006}
+  m_LocalRotation: {x: 0.5245967, y: 0.5288718, z: -0.47220898, w: -0.47128737}
+  m_LocalPosition: {x: -0.07, y: -0.12, z: 0.54}
   m_LocalScale: {x: -0.16570237, y: 169.51799, z: -0.30496323}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1882699746}
-  m_LocalEulerAnglesHint: {x: -0.334, y: 100.31, z: 90.118}
+  m_LocalEulerAnglesHint: {x: 0.287, y: 263.695, z: 89.792}
 --- !u!64 &1817576790
 MeshCollider:
   m_ObjectHideFlags: 0
