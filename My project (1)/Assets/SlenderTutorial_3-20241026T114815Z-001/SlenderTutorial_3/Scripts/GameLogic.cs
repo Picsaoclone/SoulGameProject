@@ -1,28 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;  // Thêm thư viện TextMeshPro
+﻿using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    public GameObject counter;
+    public GameObject counter; // UI text displaying page count
+    public int pageCount;      // Number of pages collected
 
-    public int pageCount;
-
-
-    void Start()
+    private void Start()
     {
-        pageCount = 0;
-        
+        // Attempt to load saved data
+        SaveData data = SaveManager.LoadGame();
+        if (data != null)
+        {
+            pageCount = data.pageCount;
+
+            // Restore player position
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                player.transform.position = data.playerPosition;
+            }
+
+            Debug.Log("Game state loaded! Pages: " + pageCount + ", Position: " + data.playerPosition);
+        }
+        else
+        {
+            pageCount = 0; // Start fresh if no save file exists
+            Debug.Log("No save data found. Starting a new game.");
+        }
     }
 
-
-
-    void Update()
+    private void Update()
     {
-        counter.GetComponent<TextMeshProUGUI>().text = pageCount + "/8";
-
-
+        // Update the UI with the current page count
+        counter.GetComponent<TMPro.TextMeshProUGUI>().text = pageCount + "/8";
     }
 }

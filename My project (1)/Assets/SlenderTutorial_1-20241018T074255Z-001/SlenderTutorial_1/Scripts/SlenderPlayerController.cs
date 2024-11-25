@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class SlenderPlayerController : MonoBehaviour
 {
+    
 
     //Camera:
 
@@ -70,7 +71,7 @@ public class SlenderPlayerController : MonoBehaviour
 
     void Update()
     {
-
+       
         //Walking/Running In Action:
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
