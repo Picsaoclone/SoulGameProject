@@ -308,6 +308,8 @@ MonoBehaviour:
   ZoomFOV: 35
   initialFOV: 80
   cameraZoomSmooth: 1
+  canMove: 1
+  characterController: {fileID: 128439422}
   cameraZoomSound: {fileID: 1222225543}
 --- !u!143 &128439422
 CharacterController:
@@ -350,7 +352,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5371,10 +5373,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 128439426}
-  teleportDistance: 10
+  teleportDistance: 15
   teleportCooldown: 15
   returnCooldown: 10
-  chaseProbability: 0.642
+  chaseProbability: 0.653
   rotationSpeed: 5
   teleportSound: {fileID: 8300000, guid: 75b6793d4022ca74a94c8c9b16b7010d, type: 3}
   staticObject: {fileID: 1817576788}

@@ -1,13 +1,39 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class GameLogic : MonoBehaviour
+public class GameLogic : MonoBehaviour, IPageObserver
 {
+    // Singleton instance
+    public static GameLogic Instance { get; private set; }
+
     public GameObject counter; // UI text displaying page count
-    public int pageCount;      // Number of pages collected
+    public int pageCount = 0;  // Number of pages collected
+    private List<IPageObserver> observers = new List<IPageObserver>(); // List of observers
+
+    private void Awake()
+    {
+        // Ensure only one instance of GameLogic exists
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keep the GameLogic object persistent across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy any additional instances
+        }
+    }
 
     private void Start()
     {
-        // Attempt to load saved data
+        // Register as observer for CollectPages
+        CollectPages[] collectPages = FindObjectsOfType<CollectPages>();
+        foreach (var page in collectPages)
+        {
+            page.RegisterObserver(this);
+        }
+
+        // Load saved data
         SaveData data = SaveManager.LoadGame();
         if (data != null)
         {
@@ -19,19 +45,29 @@ public class GameLogic : MonoBehaviour
             {
                 player.transform.position = data.playerPosition;
             }
-
-            Debug.Log("Game state loaded! Pages: " + pageCount + ", Position: " + data.playerPosition);
         }
         else
         {
-            pageCount = 0; // Start fresh if no save file exists
-            Debug.Log("No save data found. Starting a new game.");
+            pageCount = 0;
         }
     }
 
     private void Update()
     {
-        // Update the UI with the current page count
-        counter.GetComponent<TMPro.TextMeshProUGUI>().text = pageCount + "/8";
+        counter.GetComponent<TMPro.TextMeshProUGUI>().text = pageCount + "/8";  // Update the page count UI
+    }
+
+    // Implementation of IPageObserver
+    public void OnPageCollected(int pageCount)
+    {
+        this.pageCount = pageCount;
+        Debug.Log("Page collected! Current page count: " + this.pageCount);
+    }
+    public void RegisterObserver(IPageObserver observer)
+    {
+        if (!observers.Contains(observer))
+        {
+            observers.Add(observer);
+        }
     }
 }

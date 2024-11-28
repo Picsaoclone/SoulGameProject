@@ -45,7 +45,7 @@ public class SlenderManAI : MonoBehaviour
 
         if (player == null)
         {
-           
+
             return;
         }
 

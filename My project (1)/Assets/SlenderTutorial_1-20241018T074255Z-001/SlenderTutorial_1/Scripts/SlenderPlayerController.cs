@@ -1,122 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-//This Will Auto Add Character Controller To Gameobject If It's Not Already Applied:
+// This will auto add the Character Controller to the GameObject if it's not already applied:
 [RequireComponent(typeof(CharacterController))]
-
 public class SlenderPlayerController : MonoBehaviour
 {
-    
-
-    //Camera:
-
+    // Camera:
     public Camera playerCam;
 
-
-    //Movement Settings:
-
+    // Movement Settings:
     public float walkSpeed = 3f;
     public float runSpeed = 5f;
-    public float jumpPower = 0f;
+    public float jumpPower = 8f;  // Adjusted for jumping
     public float gravity = 10f;
 
-
-    //Camera Settings:
-
+    // Camera Settings:
     public float lookSpeed = 2f;
     public float lookXLimit = 75f;
 
-    Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
-
-    //Camera Zoom Settings
-
+    // Camera Zoom Settings
     public int ZoomFOV = 35;
     public int initialFOV;
     public float cameraZoomSmooth = 1;
 
     private bool isZoomed = false;
 
+    // Can the player move?
+    public bool canMove = true;
 
-    //Can The Player Move?:
+    // Components:
+    public CharacterController characterController;
 
-    private bool canMove = true;
-
-    CharacterController characterController;
-
-    //Sound Effects:
-
+    // Sound Effects:
     public AudioSource cameraZoomSound;
 
+    // Movement Strategy:
+    private IMovementStrategy movementStrategy;
 
+    // Camera Control Strategy:
+    private ICameraControlStrategy cameraControlStrategy;
+
+    // Camera Rotation Variables:
+    private float rotationX = 0f;
 
     void Start()
     {
-        //Ensure We Are Using The Character Controller Component:
-
+        // Ensure we are using the Character Controller component:
         characterController = GetComponent<CharacterController>();
 
-
-        //Lock And Hide Cursor:
-
+        // Lock and hide cursor:
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        // Initialize movement strategy (walking by default):
+        movementStrategy = new WalkingMovement(this);
+
+        // Initialize camera control strategy (free camera by default):
+        cameraControlStrategy = new FreeCameraControl(this);
     }
-
-
-
 
     void Update()
     {
-       
-        //Walking/Running In Action:
+        // Handle player movement:
+        movementStrategy.Move();
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
+        // Handle camera movement:
+        cameraControlStrategy.ControlCamera();
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        // Handle zooming:
+        HandleZoom();
+    }
 
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-
-
-        //Jumping In Action:
-
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-        {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
-        }
-
-        if (!characterController.isGrounded)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
-
-        characterController.Move(moveDirection * Time.deltaTime);
-
-
-        //Camera Movement In Action:
-
-        if (canMove)
-        {
-            rotationX -= Input.GetAxis("Mouse Y") * lookSpeed;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            playerCam.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
-        }
-
-        //Zooming In Action:
-
-        if(Input.GetButtonDown("Fire2"))
+    private void HandleZoom()
+    {
+        if (Input.GetButtonDown("Fire2"))
         {
             isZoomed = true;
             cameraZoomSound.Play();
@@ -130,14 +86,41 @@ public class SlenderPlayerController : MonoBehaviour
 
         if (isZoomed)
         {
-            playerCam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(playerCam.fieldOfView, ZoomFOV, Time.deltaTime * cameraZoomSmooth);
+            playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, ZoomFOV, Time.deltaTime * cameraZoomSmooth);
         }
-
-        else if (!isZoomed)
+        else
         {
-            playerCam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(playerCam.fieldOfView, initialFOV, Time.deltaTime * cameraZoomSmooth);
+            playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, initialFOV, Time.deltaTime * cameraZoomSmooth);
         }
+    }
 
+    // Method to switch movement strategy based on user input:
+    public void SwitchMovementStrategy(bool isRunning)
+    {
+        movementStrategy = isRunning ? new RunningMovement(this) : new WalkingMovement(this);
+    }
 
+    // Accessor for rotationX (to be used in FreeCameraControl)
+    public float GetRotationX()
+    {
+        return rotationX;
+    }
+
+    // Mutator for rotationX (to update the vertical camera rotation)
+    public void SetRotationX(float value)
+    {
+        rotationX = value;
+    }
+
+    // Accessor for character controller (for movement strategies)
+    public CharacterController GetCharacterController()
+    {
+        return characterController;
+    }
+
+    // Accessor for jump power (for movement strategies)
+    public float GetJumpPower()
+    {
+        return jumpPower;
     }
 }
