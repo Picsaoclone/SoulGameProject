@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement; // Import thư viện SceneManagement
 
 public class SlenderManAI : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class SlenderManAI : MonoBehaviour
 
     public GameObject staticObject; // Reference to the "static" GameObject
     public float staticActivationRange = 5f; // Range at which "static" should be activated
+    public float deathRange = 2f; // Range at which player dies (adjust as needed)
+    public string dieSceneName = "DieScene"; // Name of the scene to load when player dies
 
     private Vector3 baseTeleportSpot;
     private float teleportTimer;
@@ -42,10 +45,8 @@ public class SlenderManAI : MonoBehaviour
 
     private void Update()
     {
-
         if (player == null)
         {
-
             return;
         }
 
@@ -70,6 +71,13 @@ public class SlenderManAI : MonoBehaviour
 
         // Check player distance and toggle the "static" object accordingly
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // Check death range and switch to die scene
+        if (distanceToPlayer <= deathRange)
+        {
+            SceneManager.LoadScene(dieSceneName);
+        }
+
         if (distanceToPlayer <= staticActivationRange)
         {
             if (staticObject != null && !staticObject.activeSelf)

@@ -3624,13 +3624,13 @@ GameObject:
   - component: {fileID: 1151730971}
   - component: {fileID: 1151730973}
   - component: {fileID: 1151730972}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1151730971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3648,7 +3648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48.5, y: -30}
+  m_AnchoredPosition: {x: -39, y: -36}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1151730972
@@ -3676,7 +3676,7 @@ MonoBehaviour:
     [E]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 8b29aaa3eec7468097ff07adfcf29ac9, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5342,6 +5342,8 @@ MonoBehaviour:
   teleportSound: {fileID: 8300000, guid: 75b6793d4022ca74a94c8c9b16b7010d, type: 3}
   staticObject: {fileID: 1817576788}
   staticActivationRange: 5
+  deathRange: 2
+  dieSceneName: DieScene
 --- !u!4 &1590294264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ef08293db2e5d55458aa1f570642ff3a, type: 3}
