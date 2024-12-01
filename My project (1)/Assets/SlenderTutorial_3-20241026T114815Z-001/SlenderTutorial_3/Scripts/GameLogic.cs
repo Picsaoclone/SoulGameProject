@@ -1,45 +1,40 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System.Collections; // Đúng namespace cho IEnumerator
+using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour, IPageObserver
 {
-    // Singleton instance
     public static GameLogic Instance { get; private set; }
-
-    public GameObject counter; // UI text displaying page count
-    public int pageCount = 0;  // Number of pages collected
-    private List<IPageObserver> observers = new List<IPageObserver>(); // List of observers
+    public GameObject counter;
+    public int pageCount = 0;
+    private bool isExitNotified = false;
 
     private void Awake()
     {
-        // Ensure only one instance of GameLogic exists
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep the GameLogic object persistent across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Destroy any additional instances
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        // Register as observer for CollectPages
         CollectPages[] collectPages = FindObjectsOfType<CollectPages>();
         foreach (var page in collectPages)
         {
             page.RegisterObserver(this);
         }
 
-        // Load saved data
+        // Load saved data if any
         SaveData data = SaveManager.LoadGame();
         if (data != null)
         {
             pageCount = data.pageCount;
-
-            // Restore player position
             GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
             {
@@ -54,20 +49,26 @@ public class GameLogic : MonoBehaviour, IPageObserver
 
     private void Update()
     {
-        counter.GetComponent<TMPro.TextMeshProUGUI>().text = pageCount + "/8";  // Update the page count UI
+        counter.GetComponent<TMPro.TextMeshProUGUI>().text = pageCount + "/7";
     }
 
-    // Implementation of IPageObserver
     public void OnPageCollected(int pageCount)
     {
         this.pageCount = pageCount;
         Debug.Log("Page collected! Current page count: " + this.pageCount);
-    }
-    public void RegisterObserver(IPageObserver observer)
-    {
-        if (!observers.Contains(observer))
+
+        if (this.pageCount >= 7 && !isExitNotified)
         {
-            observers.Add(observer);
+            isExitNotified = true;
+            StartCoroutine(ShowExitNotification()); // Gọi Coroutine đúng cách
         }
+    }
+
+    private IEnumerator ShowExitNotification()
+    {
+        Debug.Log("Bạn đã thu thập đủ 7 tờ giấy! Đang chuyển cảnh...");
+        counter.GetComponent<TMPro.TextMeshProUGUI>().text = "7/7";
+        yield return new WaitForSeconds(0.5f); // Chờ 2 giây
+        SceneManager.LoadScene("EndingScene");
     }
 }
