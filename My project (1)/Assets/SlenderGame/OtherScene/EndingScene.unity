@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 860677235}
   - component: {fileID: 860677234}
   m_Layer: 0
-  m_Name: Horror Suspense   Sound Effect HD 2
+  m_Name: HorrorBackgound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 927334544}
   - component: {fileID: 927334543}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: EndingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,11 +557,11 @@ Transform:
   m_GameObject: {fileID: 1316065794}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -41.63, y: -3.6999998, z: -70.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1720933208}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1385863852
 GameObject:
@@ -720,7 +720,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcf612260a98494c97a61bbe4abe317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scareLink: https://www.google.com/url?sa=i&url=https%3A%2F%2Fgamek.vn%2F5-creepypasta-kinh-di-co-the-dung-duoc-thanh-phim-khien-ai-xem-cung-dung-toc-gay-20190126105749937.chn&psig=AOvVaw1IqnAi7KSjXbegz5al7eqO&ust=1733229084734000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLD90KeLiYoDFQAAAAAdAAAAABAE
+  scaryImageUrl: https://drive.google.com/uc?export=download&id=1weTc22uD6QfwwhEAfyaC9PDF3yKMYnbV
+  scaryWebsiteUrl: https://www.google.com/search?q=jumpscare+hornor+gif&sca_esv=ffa11d673dff9c7c&rlz=1C1FKPE_viVN1053VN1053&udm=2&biw=1440&bih=765&sxsrf=ADLYWIIKIsYUy_K5AsAObwo94gI5cJj67w%3A1733143592299&ei=KKxNZ-fqEYXk2roP48aj2Qk&ved=0ahUKEwjnnqeBj4mKAxUFslYBHWPjKJsQ4dUDCBA&uact=5&oq=jumpscare+hornor+gif&gs_lp=EgNpbWciFGp1bXBzY2FyZSBob3Jub3IgZ2lmSK4gUL4XWJsfcAR4AJABBJgBpAGgAYYLqgEDMi45uAEDyAEA-AEBmAIEoALRAsICBhAAGAcYHsICBRAAGIAEwgIIEAAYBxgKGB7CAggQABgHGAgYHpgDAOIDBRIBMSBAiAYBkgcDMi4yoAeSJA&sclient=img
 --- !u!4 &1510808919
 Transform:
   m_ObjectHideFlags: 0
@@ -903,6 +904,39 @@ Transform:
   - {fileID: 1520782445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1720933207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720933208}
+  m_Layer: 0
+  m_Name: PlayerView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720933208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720933207}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.63, y: 6.7, z: 70.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2054712654}
+  - {fileID: 1316065796}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023922821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,20 +1090,19 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054712651}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -41.63, y: -5.7, z: -80.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1720933208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2054712654}
-  - {fileID: 1316065796}
-  - {fileID: 1510808919}
   - {fileID: 1627130528}
-  - {fileID: 2023922824}
   - {fileID: 1573403890}
+  - {fileID: 1720933208}
+  - {fileID: 1510808919}
+  - {fileID: 2023922824}
