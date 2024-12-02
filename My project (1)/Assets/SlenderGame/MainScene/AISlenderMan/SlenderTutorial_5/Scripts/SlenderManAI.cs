@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement; // Import thư viện SceneManagement
-
+using UnityEngine.UI; // Import thư viện UI để hiển thị cảnh báo
+using TMPro;
 public class SlenderManAI : MonoBehaviour
 {
     public Transform player; // Reference to the player's GameObject
@@ -15,7 +16,9 @@ public class SlenderManAI : MonoBehaviour
     public GameObject staticObject; // Reference to the "static" GameObject
     public float staticActivationRange = 5f; // Range at which "static" should be activated
     public float deathRange = 2f; // Range at which player dies (adjust as needed)
+    public float cautionRange = 5f; // Range for caution warning
     public string dieSceneName = "MainMenu2"; // Name of the scene to load when player dies
+    public TextMeshProUGUI cautionText; // Reference to the UI Text for the caution warning
 
     private Vector3 baseTeleportSpot;
     private float teleportTimer;
@@ -40,6 +43,12 @@ public class SlenderManAI : MonoBehaviour
         if (staticObject != null)
         {
             staticObject.SetActive(false);
+        }
+
+        // Ensure the caution text is initially hidden
+        if (cautionText != null)
+        {
+            cautionText.gameObject.SetActive(false);
         }
     }
 
@@ -78,6 +87,23 @@ public class SlenderManAI : MonoBehaviour
             SceneManager.LoadScene(dieSceneName);
         }
 
+        // Show caution text if player is within caution range
+        if (distanceToPlayer <= cautionRange)
+        {
+            if (cautionText != null && !cautionText.gameObject.activeSelf)
+            {
+                cautionText.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (cautionText != null && cautionText.gameObject.activeSelf)
+            {
+                cautionText.gameObject.SetActive(false);
+            }
+        }
+
+        // Check static activation range
         if (distanceToPlayer <= staticActivationRange)
         {
             if (staticObject != null && !staticObject.activeSelf)
