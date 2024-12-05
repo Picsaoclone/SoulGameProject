@@ -1379,13 +1379,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.447
+    value: 1
   size:
     overrideState: 1
-    value: 0.3
+    value: 0.96
   lumContrib:
     overrideState: 1
-    value: 0.737
+    value: 0.325
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,7 +1425,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 4
+    value: 2.61
   color:
     overrideState: 1
     value: {r: 0.084905684, g: 0, b: 0, a: 1}
@@ -1443,10 +1443,10 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 10
+    value: 3.85
   zBias:
     overrideState: 1
-    value: 0.001
+    value: 0.000307
   directLightingStrength:
     overrideState: 0
     value: 0
