@@ -18,7 +18,7 @@ public class SlenderManAI : MonoBehaviour
     public float deathRange = 2f; // Range at which player dies (adjust as needed)
     public float cautionRange = 5f; // Range for caution warning
     public string dieSceneName = "MainMenu2"; // Name of the scene to load when player dies
-    public TextMeshProUGUI cautionText; // Reference to the UI Text for the caution warning
+    public Text cautionText; // Reference to the UI Text for the caution warning
 
     private Vector3 baseTeleportSpot;
     private float teleportTimer;
